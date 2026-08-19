@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Student Form</title>
+</head>
+<body>
+    <h2 th:text="${student.id} != null ? 'Edit Student' : 'Add Student'"></h2>
+
+    <form th:action="${student.id} != null
+                       ? @{/students/update/{id}(id=${student.id})}
+                       : @{/students/save}"
+          th:object="${student}" method="post">
+
+        <label>Name:</label>
+        <input type="text" th:field="*{name}" />
+        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color:red"></span>
+        <br/>
+
+        <label>Email:</label>
+        <input type="text" th:field="*{email}" />
+        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color:red"></span>
+        <br/>
+
+        <label>Department:</label>
+        <input type="text" th:field="*{department}" />
+        <br/>
+
+        <label>CGPA:</label>
+        <input type="text" th:field="*{cgpa}" />
+        <span th:if="${#fields.hasErrors('cgpa')}" th:errors="*{cgpa}" style="color:red"></span>
+        <br/>
+
+        <button type="submit">Save</button>
+        <a th:href="@{/students}">Cancel</a>
+    </form>
+</body>
+</html>
